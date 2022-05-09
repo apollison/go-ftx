@@ -37,7 +37,7 @@ func signature(secret, body string) string {
 
 func (p *Client) newRequest(r Requester) *fasthttp.Request {
 	// avoid Pointer's butting
-	u, _ := url.ParseRequestURI(ENDPOINT)
+	u, _ := url.ParseRequestURI(p.Auth.GetEndpoint())
 	u.Path = u.Path + r.Path()
 	u.RawQuery = r.Query()
 

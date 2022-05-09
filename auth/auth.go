@@ -7,11 +7,15 @@ import (
 	"sync"
 )
 
+// Default to international ep.
+const ENDPOINT = "https://ftx.com/api"
+
 type Config struct {
 	mux sync.RWMutex
 
-	Key    string
-	Secret string
+	Endpoint string
+	Key      string
+	Secret   string
 
 	// SubAccountID use Account as needed when rewrite ID
 	SubAccountID int
@@ -59,4 +63,13 @@ func (p *Config) Signature(body string) string {
 	mac := hmac.New(sha256.New, []byte(p.Secret))
 	mac.Write([]byte(body))
 	return hex.EncodeToString(mac.Sum(nil))
+}
+
+// GetEndpoint returns the default, or overridden endpoint.
+func (c *Config) GetEndpoint() string {
+	if c.Endpoint != "" {
+		return c.Endpoint
+	} else {
+		return ENDPOINT
+	}
 }

@@ -8,8 +8,6 @@ import (
 	"github.com/valyala/fasthttp"
 )
 
-const ENDPOINT = "https://ftx.com/api"
-
 var json = jsoniter.ConfigCompatibleWithStandardLibrary
 
 type Client struct {
